@@ -7,9 +7,6 @@
 using namespace std;
 string user_receipt();
 
-
-
-
 //prompt user receipt
 string user_receipt() {
     string name = " ";
@@ -49,212 +46,29 @@ void printloyalPoints(double total) {
     cout << "Loyalty Points" << ast << endl;
 }
 
-char takeOrder() {
+void takeOrder(char &foodChoice, char &sizeChoice, int &quantity) {
+    
+    cout << "Please choose an item: " << endl;
+    cin >> foodChoice;
+    cout << "Please select a size (s/m/l): " << endl;
+    cin >> sizeChoice;
+    cout << "How many would you like? " << endl;
+    cin >> quantity;
+}
 
-    string name;
-    char itemcode;
-    int quantity;
-    double price;
-    char member;
-    double discount;
-    char choice;
-    char sizechoice;
-    char tip;
-    bool checkout = false;
-    string order;
-    string foodname;
-    bool day = false;
-    double totalsale = 0;
-    int customer = 0;
-    double subtotal = 0;
-    //file 
-    string Wine;
-    string Tequila;
-    string Burger;
-    string Moose;
-
-    double sm1;
-    double m1;
-    double l1;
-
-    double sm2;
-    double m2;
-    double l2;
-
-    double sm3;
-    double m3;
-    double l3;
-
-    double sm4;
-    double m4;
-    double l4;
-
-    do {
-        cout << "Please Select Either Drink or Entree" << endl;
-        cin >> choice;
-        switch (choice) {
-        case 'A':
-        case 'a':
-            foodname = "Wine";
-            cout << "You have selected wine. Please select the size you'd like. Use S, M, or L" <<
-                endl;
-            cin >> sizechoice;
-            switch (sizechoice) {
-            case 'S':
-            case 's':
-                cout << "You have selected Small." << endl;
-                price = sm1;
-                cout << "Enter the amount you want";
-                cin >> quantity;
-                subtotal += price * quantity;
-                break;
-            case 'M':
-            case 'm':
-                cout << "You have selected Medium." << endl;
-                price = m1;
-                cout << "Enter the amount you want";
-                cin >> quantity;
-                subtotal += price * quantity;
-                break;
-            case 'L':
-            case 'l':
-                cout << "You have selected Large." << endl;
-                price = l1;
-                cout << "Enter the amount you want";
-                cin >> quantity;
-                subtotal += price * quantity;
-                break;
-            default: cout << " You messed up try again" << endl;
-                break;
-
-
-
-            }
-
-
-
-            break;
-        case 'B':
-        case 'b':
-            foodname = "tequila";
-            cout << "You have selected Tequila. Please select the size you'd like. Use S, M, or L"
-                << endl;
-            cin >> sizechoice;
-            switch (sizechoice) {
-            case 'S':
-            case 's':
-                cout << "You have selected Small." << endl;
-                price = sm2;
-                cout << "Enter the amount you want";
-                cin >> quantity;
-                subtotal += price * quantity;
-                break;
-            case 'M':
-            case 'm':
-                cout << "You have selected Medium." << endl;
-                price = m2;
-                cout << "Enter the amount you want";
-                cin >> quantity;
-                subtotal += price * quantity;
-                break;
-            case 'L':
-            case 'l':
-                cout << "You have selected Large." << endl;
-                price = l2;
-                cout << "Enter the amount you want";
-                cin >> quantity;
-                subtotal += price * quantity;
-                break;
-
-            default: cout << " You messed up try again" << endl;
-                break;
-            }
-
-            break;
-
-
-        case 'C':
-        case 'c':
-            foodname = "burger";
-            cout << "You have selected Burger, please select the size you'd like using S, M, or L"
-                << endl;
-            cin >> sizechoice;
-            switch (sizechoice) {
-            case 'S':
-            case 's':
-                cout << "You have selected Small." << endl;
-                price = sm3;
-                cout << "Enter the amount you want";
-                cin >> quantity;
-                subtotal += price * quantity;
-                break;
-            case 'M':
-            case 'm':
-                cout << "You have selected Medium." << endl;
-                price = m3;
-                cout << "Enter the amount you want";
-                cin >> quantity;
-                subtotal += price * quantity;
-                break;
-            case 'L':
-            case 'l':
-                cout << "You have selected Large." << endl;
-                price = l3;
-                cout << "Enter the amount you want";
-                cin >> quantity;
-                subtotal += price * quantity;
-                break;
-
-            default: cout << " You messed up try again" << endl;
-            }
-            break;
-        case 'D':
-        case 'd':
-            foodname = "Moose";
-            cout << "You have selected Moose, please select the size you'd like using S, M, or L"
-                << endl;
-            cin >> sizechoice;
-            switch (sizechoice) {
-            case 'S':
-            case 's':
-                cout << "You have selected Small." << endl;
-                price = sm4;
-                break;
-                cout << "Enter the amount you want";
-                cin >> quantity;
-                subtotal += price * quantity;
-            case 'M':
-            case 'm':
-                cout << "You have selected Medium." << endl;
-                price = m4;
-                cout << "Enter the amount you want";
-                cin >> quantity;
-                subtotal += price * quantity;
-                break;
-            case 'L':
-            case 'l':
-                cout << "You have selected Large." << endl;
-                price = l4;
-                cout << "Enter the amount you want";
-                cin >> quantity;
-                subtotal += price * quantity;
-                break;
-
-
-            default: cout << " You messed up try again" << endl;
-                break;
-            }
-            break;
-        case 'E':
-        case 'e':
-            checkout = true;
-            break;
-        default: cout << "Error" << endl;
-        }
-        order += foodname + "\t\t" + to_string(quantity) + "\t\t" + to_string(price) + "\t\t" +
-            to_string(subtotal) + "\n";
-
-    } while (checkout == false);
+void readMenuItem(ifstream &input, string &foodName, double &smPrice,
+double &medPrice, double &lgPrice){
+    input >> foodName;
+    input >> smPrice;
+    input >> medPrice;
+    input >> lgPrice;
+}
+void printMenuItem(char selectionItem, string foodName, 
+    double smPrice, double medPrice, double lgPrice) {
+        cout << std::setw(30) << selectionItem << ": "
+        << foodName << setw(10) << smPrice 
+        << setw(10) << medPrice
+        << setw(10) << lgPrice << endl;
 }
 
 
@@ -300,6 +114,8 @@ int main()
     double l4;
     //read 
     ifstream inputFile;
+    ofstream output;
+    output.open("where_am_i.txt");
     inputFile.open("Menu.txt");
     if (!inputFile)
         cout << "File didnt open";
@@ -307,44 +123,141 @@ int main()
     inputFile >> sm1;
     inputFile >> m1;
     inputFile >> l1;
+        //readMenuItem(inputFile, Wine, sm1, m1, l1);    
+    readMenuItem(inputFile, Tequila, sm2, m2, l2);    
+    readMenuItem(inputFile, Burger, sm3, m3, l3);    
+    readMenuItem(inputFile, Moose, sm4, m4, l4);    
 
-    inputFile >> Tequila;
-    inputFile >> sm2;
-    inputFile >> m2;
-    inputFile >> l2;
-
-    inputFile >> Burger;
-    inputFile >> sm3;
-    inputFile >> m3;
-    inputFile >> l3;
-
-    inputFile >> Moose;
-    inputFile >> sm4;
-    inputFile >> m4;
-    inputFile >> l4;
     // Menu 
 
     do {
+        do {
         cout << setw(22) << "Menu" << endl;
         cout << setw(35) << "Drinks     Small (s)       Medium (m)       Large(l)" << endl;
-        cout << setw(30) << "A: Wine       3.50            6.00             9.50   " << endl;
-        cout << setw(30) << "B: Tequila    0.99            2.50             5.00" << endl;
+        printMenuItem('A', Wine, sm1, m1, l1);
+        printMenuItem('B', Tequila, sm2, m2, l2);
+        //cout << setw(30) << "A: Wine       3.50            6.00             9.50   " << endl;
+        //cout << setw(30) << "B: Tequila    0.99            2.50             5.00" << endl;
         cout << " Entrees" << endl;
-        cout << setw(30) << "C: Burger    5.00             7.50            12.50" << endl;
-        cout << setw(30) << "D: Moose     10.00            17.50           32.50" << endl;
+        printMenuItem('C', Burger, sm3, m3, l3);
+        printMenuItem('D', Moose, sm4, m4, l4);
+        //cout << setw(30) << "C: Burger    5.00             7.50            12.50" << endl;
+        //cout << setw(30) << "D: Moose     10.00            17.50           32.50" << endl;
         cout << "E: Check out" << endl;
 
         //menu 
 
-        takeOrder();
+        takeOrder(choice, sizechoice, quantity);
+        switch (choice) {
+        case 'A':
+        case 'a':
+            foodname = "Wine";
+            switch (sizechoice) {
+            case 'S':
+            case 's':
+                price = sm1;
+                subtotal += price * quantity;
+                break;
+            case 'M':
+            case 'm':
+                price = m1;
+                subtotal += price * quantity;
+                break;
+            case 'L':
+            case 'l':
+                price = l1;
+                subtotal += price * quantity;
+                break;
+            default: 
+            std::cout << " You messed up try again" << endl;
+                break;
+            }
+            break;
+        case 'B':
+        case 'b':
+            foodname = "tequila";
+            switch (sizechoice) {
+            case 'S':
+            case 's':
+                price = sm2;
+                subtotal += price * quantity;
+                break;
+            case 'M':
+            case 'm':
+                price = m2;
+                subtotal += price * quantity;
+                break;
+            case 'L':
+            case 'l':
+                price = l2;
+                subtotal += price * quantity;
+                break;
+            default: std::cout << " You messed up try again" << endl;
+                break;
+            }
+            break;
+        case 'C':
+        case 'c':
+            foodname = "burger";
+            switch (sizechoice) {
+            case 'S':
+            case 's':
+                price = sm3;
+                subtotal += price * quantity;
+                break;
+            case 'M':
+            case 'm':
+                price = m3;
+                subtotal += price * quantity;
+                break;
+            case 'L':
+            case 'l':
+                price = l3;
+                subtotal += price * quantity;
+                break;
+            default: std::cout << " You messed up try again" << endl;
+            }
+            break;
+        case 'D':
+        case 'd':
+            foodname = "Moose";
+            switch (sizechoice) {
+            case 'S':
+            case 's':
+                price = sm4;
+                subtotal += price * quantity;
+            case 'M':
+            case 'm':
+                price = m4;
+                subtotal += price * quantity;
+                break;
+            case 'L':
+            case 'l':
+                price = l4;
+                subtotal += price * quantity;
+                break;
+            default: cout << " You messed up try again" << endl;
+                break;
+            }
+            break;
+        case 'E':
+        case 'e':
+            checkout = true;
+            break;
+        default: std::cout << "Error" << endl;
+        }
+        order += foodname + "\t\t" + to_string(quantity) + "\t\t" + to_string(price) + "\t\t" +
+            to_string(subtotal) + "\n";
+
+    } while (checkout == false);
 
         //ask for user's name. 
 
-        cout << "What is your name ? " << endl;
-        cin >> name;
+        std::cout << "What is your name ? " << endl;
+        std::cin >> name;
 
-        cout << "Are you a member? y/n";
-        cin >> member;
+        std::cout << "Are you a member? y/n";
+        std::cin >> member;
         //  cashier notes 
         string note;
         cout << " Cashier Notes";
@@ -458,7 +371,7 @@ int main()
     cout << "There was a total of " << totalsale << " Dollars in sales today" << endl;
 
 }
-
+/*
 double takeOrder(string& order) {
 
     // Declare Variables
@@ -519,151 +432,89 @@ double takeOrder(string& order) {
         case 'A':
         case 'a':
             foodname = "Wine";
-            cout << "You have selected wine. Please select the size you'd like. Use S, M, or L: " <<
-                endl;
-            cin >> sizechoice;
             switch (sizechoice) {
             case 'S':
             case 's':
-                cout << "You have selected Small." << endl;
                 price = sm1;
-                cout << "Enter the amount you want";
-                cin >> quantity;
                 subtotal += price * quantity;
                 break;
             case 'M':
             case 'm':
-                cout << "You have selected Medium." << endl;
                 price = m1;
-                cout << "Enter the amount you want";
-                cin >> quantity;
                 subtotal += price * quantity;
                 break;
             case 'L':
             case 'l':
-                cout << "You have selected Large." << endl;
                 price = l1;
-                cout << "Enter the amount you want";
-                cin >> quantity;
                 subtotal += price * quantity;
                 break;
             default: cout << " You messed up try again" << endl;
                 break;
-
-
-
             }
-
-
-
             break;
         case 'B':
         case 'b':
             foodname = "tequila";
-            cout << "You have selected Tequila. Please select the size you'd like. Use S, M, or L"
-                << endl;
-            cin >> sizechoice;
             switch (sizechoice) {
             case 'S':
             case 's':
-                cout << "You have selected Small." << endl;
                 price = sm2;
-                cout << "Enter the amount you want";
-                cin >> quantity;
                 subtotal += price * quantity;
                 break;
             case 'M':
             case 'm':
-                cout << "You have selected Medium." << endl;
                 price = m2;
-                cout << "Enter the amount you want";
-                cin >> quantity;
                 subtotal += price * quantity;
                 break;
             case 'L':
             case 'l':
-                cout << "You have selected Large." << endl;
                 price = l2;
-                cout << "Enter the amount you want";
-                cin >> quantity;
                 subtotal += price * quantity;
                 break;
-
             default: cout << " You messed up try again" << endl;
                 break;
             }
-
             break;
-
-
         case 'C':
         case 'c':
             foodname = "burger";
-            cout << "You have selected Burger, please select the size you'd like using S, M, or L"
-                << endl;
-            cin >> sizechoice;
             switch (sizechoice) {
             case 'S':
             case 's':
-                cout << "You have selected Small." << endl;
                 price = sm3;
-                cout << "Enter the amount you want";
-                cin >> quantity;
                 subtotal += price * quantity;
                 break;
             case 'M':
             case 'm':
-                cout << "You have selected Medium." << endl;
                 price = m3;
-                cout << "Enter the amount you want";
-                cin >> quantity;
                 subtotal += price * quantity;
                 break;
             case 'L':
             case 'l':
-                cout << "You have selected Large." << endl;
                 price = l3;
-                cout << "Enter the amount you want";
-                cin >> quantity;
                 subtotal += price * quantity;
                 break;
-
             default: cout << " You messed up try again" << endl;
             }
             break;
         case 'D':
         case 'd':
             foodname = "Moose";
-            cout << "You have selected Moose, please select the size you'd like using S, M, or L"
-                << endl;
-            cin >> sizechoice;
             switch (sizechoice) {
             case 'S':
             case 's':
-                cout << "You have selected Small." << endl;
                 price = sm4;
-                break;
-                cout << "Enter the amount you want";
-                cin >> quantity;
                 subtotal += price * quantity;
             case 'M':
             case 'm':
-                cout << "You have selected Medium." << endl;
                 price = m4;
-                cout << "Enter the amount you want";
-                cin >> quantity;
                 subtotal += price * quantity;
                 break;
             case 'L':
             case 'l':
-                cout << "You have selected Large." << endl;
                 price = l4;
-                cout << "Enter the amount you want";
-                cin >> quantity;
                 subtotal += price * quantity;
                 break;
-
-
             default: cout << " You messed up try again" << endl;
                 break;
             }
@@ -681,4 +532,4 @@ double takeOrder(string& order) {
 
     return 0;
 }
-
+*/
